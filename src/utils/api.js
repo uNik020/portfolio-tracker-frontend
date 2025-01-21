@@ -45,7 +45,7 @@
 
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/api/stocks"; // Replace with your backend URL
+const API_BASE_URL = "https://portfolio-tracker-backend-3.onrender.com/api/stocks"; // deployed backend URL
 
 export const fetchStocks = async () => {
   const response = await axios.get(API_BASE_URL);
