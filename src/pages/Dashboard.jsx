@@ -44,7 +44,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/dashboard"); // backend URL
+        const response = await axios.get("https://portfolio-tracker-backend-3.onrender.com/api/dashboard"); // backend URL
         setDashboardData(response.data);
         setIsLoading(false);
       } catch (err) {
