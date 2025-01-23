@@ -64,12 +64,12 @@ const Dashboard = () => {
   // Placeholder values for rendering when the data is not available
   const placeholderData = {
     totalPortfolioValue: 0,
-    topPerformingStock: { stockname: "N/A", gain: 0 },
     portfolioDistribution: [],
   };
+  // topPerformingStock: { stockname: "N/A", gain: 0 },
 
   // Use placeholder data if no data is fetched or if there is an error
-  const { totalPortfolioValue, topPerformingStock, portfolioDistribution } =
+  const { totalPortfolioValue, portfolioDistribution } =
     error || isLoading ? placeholderData : dashboardData;
 
   // Safe check before calling toFixed
