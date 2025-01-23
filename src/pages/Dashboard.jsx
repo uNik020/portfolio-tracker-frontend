@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import axios from "axios"; // For making API calls
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Dashboard = () => {
   const dashboardRef = useRef(null); // Ref for the dashboard container
@@ -75,6 +80,22 @@ const Dashboard = () => {
     return "0.00"; // Return a fallback value if value is not a number
   };
 
+  // Prepare data for Pie chart (portfolio distribution)
+  const chartData = {
+    labels: portfolioDistribution.map((stock) => stock.stockName),
+    datasets: [
+      {
+        label: "Portfolio Distribution",
+        data: portfolioDistribution.map((stock) => stock.percentage),
+        backgroundColor: portfolioDistribution.map(
+          (_, index) => `hsl(${(index * 360) / portfolioDistribution.length}, 70%, 50%)`
+        ),
+        borderColor: "white",
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
     <div
       ref={dashboardRef}
@@ -93,14 +114,14 @@ const Dashboard = () => {
           ${safeToFixed(totalPortfolioValue)}
           </p>
         </div>
-        <div
+        {/* <div
           ref={(el) => (sectionRefs.current[1] = el)} // Assign ref to second section
           className="section bg-white p-4 rounded shadow dark:bg-slate-300"
         >
           <h3 className="text-xl font-semibold">Top-Performing Stock</h3>
           <p className="text-lg font-medium">{topPerformingStock.stockName}</p>
           <p className="text-lg font-medium"> Gain: {safeToFixed(topPerformingStock.gain)}</p>
-        </div>
+        </div> */}
         <div
           ref={(el) => (sectionRefs.current[2] = el)} // Assign ref to third section
           className="section bg-white p-4 rounded shadow dark:bg-slate-300"
@@ -114,6 +135,9 @@ const Dashboard = () => {
                   {stock.stockName}: {safeToFixed(stock.percentage)}%
                 </li>
               ))}
+              <li>
+              <Pie data={chartData} />
+              </li>
             </ul>
           ) : (
             <p className="text-md text-gray-600">No data available</p>
