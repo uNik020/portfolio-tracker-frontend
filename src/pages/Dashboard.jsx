@@ -114,14 +114,12 @@ const Dashboard = () => {
           ${safeToFixed(totalPortfolioValue)}
           </p>
         </div>
-        {/* <div
+        <div
           ref={(el) => (sectionRefs.current[1] = el)} // Assign ref to second section
           className="section bg-white p-4 rounded shadow dark:bg-slate-300"
         >
-          <h3 className="text-xl font-semibold">Top-Performing Stock</h3>
-          <p className="text-lg font-medium">{topPerformingStock.stockName}</p>
-          <p className="text-lg font-medium"> Gain: {safeToFixed(topPerformingStock.gain)}</p>
-        </div> */}
+              <Pie data={chartData} />
+        </div>
         <div
           ref={(el) => (sectionRefs.current[2] = el)} // Assign ref to third section
           className="section bg-white p-4 rounded shadow dark:bg-slate-300"
@@ -135,9 +133,7 @@ const Dashboard = () => {
                   {stock.stockName}: {safeToFixed(stock.percentage)}%
                 </li>
               ))}
-              <li>
-              <Pie data={chartData} />
-              </li>
+              
             </ul>
           ) : (
             <p className="text-md text-gray-600">No data available</p>
